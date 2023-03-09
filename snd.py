@@ -21,7 +21,7 @@ while True:
     data = np.fromstring(stream.read(CHUNK),dtype=np.int16)
     peak=np.average(np.abs(data))*2
     #Aggressive (Dubstep, party ...)
-    bars = int(35*peak/2**6)
+    bars = int(17*peak/2**6)
     #Mid (HipHop)
     #bars = int(250*peak/2**10)
     #Calm (Chill songs with a lot of bass)
