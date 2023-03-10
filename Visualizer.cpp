@@ -21,8 +21,8 @@ int main() {
 	file.close();
 
 	
-	int man = 35;
-	int min = 30;
+	int man = 40;
+	int min = 35;
 
 	ParticleSettings settings1;
 	//for (int i = 0; i < 185; ++i) {
@@ -39,15 +39,16 @@ int main() {
 	ParticleSystem ps1(&settings1, "particle");
 
 	ParticleSettings settings2;
-	//for (int i = 0; i < 50; ++i) {
-	//	settings2.colors.push_back(Color(255, 205 + i, 255));
+	//for (int i = 0; i < 185; ++i) {
+	//	settings2.colors.push_back(Color(255, 70 + i, 70));
 	//}
-	settings2.colors.push_back(Color(238, 130, 238));
+	settings2.colors.push_back(Color(255, 20, 147));
 	settings2.emission = 5000;
 	settings2.max_noise = 20;
 	settings2.min_noise = 15;
 	settings2.emission_point_minimal = { 0, 0 };
 	settings2.emission_point_maximal = { 1000, 1000 };
+	settings2.min_distance_to_middle = 0.f;
 	settings2.max_distance_to_middle = 50.f;
 	ParticleSystem ps2(&settings2, "particle");
 
@@ -84,7 +85,7 @@ int main() {
 	//	settings5.colors.push_back(Color(100, 100 + i, 70));
 	//}
 	settings5.colors.push_back(Color(220, 20, 60));
-	settings5.emission = 50000;
+	settings5.emission = 40000;
 	settings5.max_noise = man;
 	settings5.min_noise = min;
 	settings5.emission_point_minimal = { 0, 0 };
@@ -107,10 +108,24 @@ int main() {
 	settings6.max_distance_to_middle = 100.f;
 	ParticleSystem ps6(&settings6, "particle");
 
+	ParticleSettings settings7;
+	//for (int i = 0; i < 155; ++i) {
+	//	settings5.colors.push_back(Color(100, 100 + i, 70));
+	//}
+	settings7.colors.push_back(Color(138, 43, 226));
+	settings7.emission = 20000;
+	settings7.max_noise = man;
+	settings7.min_noise = min;
+	settings7.emission_point_minimal = { 0, 0 };
+	settings7.emission_point_maximal = { 1000, 1000 };
+	settings7.min_distance_to_middle = 500.f;
+	settings7.max_distance_to_middle = 700.f;
+	ParticleSystem ps7(&settings7, "particle");
+
 	bool ignoredist = false;
 	Input input;
 
-	float fak = 0.0000005f;
+	float fak = 0.0000003f;
 
 	for (;;) {
 		renderer.Clear();
@@ -126,8 +141,10 @@ int main() {
 		ps5.MoveTowards(pos, 0, *visualizer_intensity, *visualizer_intensity);
 		pos = { (f32)sur::RandomRange(1, 999), (f32)sur::RandomRange(1,999) };
 		ps6.MoveTowards(pos, 0, *visualizer_intensity, *visualizer_intensity);
+		pos = { (f32)sur::RandomRange(1, 999), (f32)sur::RandomRange(1,999) };
+		ps7.MoveTowards(pos, 0, *visualizer_intensity, *visualizer_intensity);
 		int tmp = *visualizer_intensity;
-		if (tmp * 0.5f > 255) tmp /= fak;
+		if (tmp * fak > 255) tmp /= fak;
 		_background = Color((int)(fak * pow(tmp,4)), (int)(fak * pow(tmp, 4)), (int)(fak * pow(tmp, 4)));
 
 		ps1.Bind();
@@ -136,6 +153,7 @@ int main() {
 		ps4.Bind();
 		ps5.Bind();
 		ps6.Bind();
+		ps7.Bind();
 		renderer.Render();
 	}
 }
