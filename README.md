@@ -7,6 +7,10 @@ A customizable audio Visualizer written in C++. It uses a python script to analy
 
 ## How to use?
 
+#### pip install
+###### pyaudio
+###### numpy
+###### pymem
 ##### Start the Visualizer.exe and wait until you see a window.
 ##### Start the snd.py and play some audio on your PC!
 
